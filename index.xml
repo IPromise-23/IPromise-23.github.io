@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>ipromise的数字花园</title><link>https://IPromise-23.github.io/</link><description>Recent content on ipromise的数字花园</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 09 May 2026 19:47:24 +0800</lastBuildDate><atom:link href="https://IPromise-23.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>我的第一篇博客</title><link>https://IPromise-23.github.io/posts/my-first-post/</link><pubDate>Sat, 09 May 2026 19:47:24 +0800</pubDate><guid>https://IPromise-23.github.io/posts/my-first-post/</guid><description>&lt;h1 id="用于测试的文章"&gt;用于测试的文章&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>ipromise的数字花园</title><link>https://IPromise-23.github.io/</link><description>Recent content on ipromise的数字花园</description><generator>Hugo</generator><language>zh-cn</language><lastBuildDate>Sat, 09 May 2026 20:30:00 +0800</lastBuildDate><atom:link href="https://IPromise-23.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>SEM（谱元法）求解</title><link>https://IPromise-23.github.io/posts/sem%E6%B1%82%E8%A7%A3/</link><pubDate>Sat, 09 May 2026 20:30:00 +0800</pubDate><guid>https://IPromise-23.github.io/posts/sem%E6%B1%82%E8%A7%A3/</guid><description>&lt;h1 id="semspectral-element-method求解"&gt;SEM（Spectral Element Method）求解&lt;/h1&gt;
+&lt;h2 id="伪谱法"&gt;伪谱法&lt;/h2&gt;
+&lt;p&gt;伪谱法的核心思想是用&lt;strong&gt;傅里叶变换&lt;/strong&gt;将&lt;strong&gt;空间导数&lt;/strong&gt;转化为&lt;strong&gt;谱域乘法&lt;/strong&gt;,将复杂的微分方程转化为代数方程,再利用傅里叶逆变换变换回物理域,达到高效求解的目标&lt;/p&gt;
+&lt;h3 id="傅里叶变换"&gt;傅里叶变换&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;傅里叶变换的定义
+对于函数f(x)，其&lt;strong&gt;傅里叶变换&lt;/strong&gt; $\hat{f}(k)$（波数 (k) 对应频率）定义为：
+$$ \hat{f}(k) = \mathcal{F}{f(x)} = \int_{-\infty}^{\infty} f(x), e^{-ikx}, dx $$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对应的&lt;strong&gt;逆傅里叶变换&lt;/strong&gt;为：
+$f(x) = \mathcal{F}^{-1}{\hat{f}(k)} = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \hat{f}(k) , e^{i k x} , dk$
+其中$ i = \sqrt{-1}$是虚数单位，$\mathcal{F}{\cdot}$ 表示傅里叶变换操作，$\mathcal{F}^{-1}{\cdot}$表示逆变换。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;变量的变通性
+原变量是时间坐标t，傅里叶变换 时域-&amp;gt;频域
+原变量是空间坐标x，傅里叶变换 空间域-&amp;gt;谱域（波数域）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;傅里叶变换的结果是&lt;strong&gt;复数&lt;/strong&gt;$F(\omega)=Re+j\cdot Im =|F(\omega)|\cdot e^{j\varphi(\omega)}$ ：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;幅度谱：频域的模函数；原来的时域信号里，每种&lt;strong&gt;快慢的波动&lt;/strong&gt;分别占多少分量；&lt;strong&gt;定量描述了构成时域信号的每一个频率分量的幅值权重&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;反映该频率正弦波在信号中的能量占比与强度&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;相位谱：频域的幅角函数；记录每个正弦波的&lt;strong&gt;起始偏移角度&lt;/strong&gt;，即这个频率的波往左/右错开了多少位置；&lt;strong&gt;定量描述了构成时域信号的每一个频率分量的初始相位偏移&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;反映该频率正弦波在时间轴上的相对位置&lt;/p&gt;
+&lt;p&gt;相位谱对噪声及其敏感，无穷小的浮点噪声都会计算出随机角度，导致非信号频率处杂乱无章；只有在信号频率处的相位才有物理意义，其余频率处均为噪声；而对幅度谱来说，只要噪声小就看不到&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;时域信号时&lt;strong&gt;有限个不同频率、不同幅度、不同相位的正弦波之和&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;时域表述：任何复杂的时间信号都可以分解为&lt;strong&gt;多个不同频率、幅度和相位&lt;/strong&gt;的简单正弦波,通过傅里叶变换可以将信号由时域转换到频域上,找到构成复杂信号的所有基础正弦波的频率和幅度&lt;/p&gt;
+&lt;p&gt;空间域表述：任何复杂的&lt;strong&gt;空间信号&lt;/strong&gt;（如二维图像、三维光场/声场分布）都可以分解为&lt;strong&gt;多个不同空间频率、幅度和相位&lt;/strong&gt;的简单空间正弦波（平面波/正弦条纹）&lt;/p&gt;
+&lt;p&gt;傅里叶变换的本质是&lt;strong&gt;将任意函数分解为一组正交的简谐基函数（复指数/正弦函数）的线性组合&lt;/strong&gt;，可以直接从时间维度推广到空间维度&lt;/p&gt;
+&lt;p&gt;傅里叶变换后的结果就是频谱,信号随频率变化,频域上横轴为&lt;strong&gt;频率&lt;/strong&gt;$f$,单位是HZ,表示==每秒钟周期性变化的次数==,纵轴则代表该频率成分的强度,这里的频率是&lt;strong&gt;时间频率&lt;/strong&gt;，描述信号随时间变化的快慢&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;空间频率&lt;/strong&gt;就是&lt;strong&gt;波数&lt;/strong&gt;,描述的是==“单位长度内包含的完整波的个数”==,即&lt;strong&gt;空间域“角频率”&lt;/strong&gt;,$ k = \frac{2\pi}{\lambda} $，描述信号随空间变化的快慢&lt;/p&gt;
+&lt;p&gt;波数和频率都反映了周期性变化的特性,他们之间有这样的关系：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;角频率：$\omega = 2\pi f$，描述&lt;strong&gt;单位时间&lt;/strong&gt;内相位的变化量 ；$f$是时间频率，单位$Hz=1/s$&lt;/li&gt;
+&lt;li&gt;波数：$ k_x = \frac{2\pi}{\lambda}=2\pi f_x $，描述&lt;strong&gt;单位长度&lt;/strong&gt;内相位的变化量；$f_x$是空间频率，单位$1/m$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;空间导数的傅里叶变换性质推导证明 $$ \mathcal{F}\left{\frac{\partial f(x)}{\partial x}\right} = i k \cdot \hat{f}(k) $$
+对空间导数$ \frac{\partial f(x)}{\partial x} $直接使用傅里叶变换的定义式： $$ \mathcal{F}\left{\frac{\partial f(x)}{\partial x}\right} = \int_{-\infty}^{+\infty} \frac{\partial f(x)}{\partial x} e^{-i k x} dx $$&lt;/p&gt;</description></item><item><title>我的第一篇博客</title><link>https://IPromise-23.github.io/posts/my-first-post/</link><pubDate>Sat, 09 May 2026 19:47:24 +0800</pubDate><guid>https://IPromise-23.github.io/posts/my-first-post/</guid><description>&lt;h1 id="用于测试的文章"&gt;用于测试的文章&lt;/h1&gt;
 &lt;h2 id="为什么开始写博客"&gt;为什么开始写博客&lt;/h2&gt;
 &lt;p&gt;一直想有个自己的空间记录想法，今天终于动手了。&lt;/p&gt;
 &lt;h2 id="今天学到了什么"&gt;今天学到了什么&lt;/h2&gt;
